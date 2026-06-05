@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><style>
+body{font-family:Arial,sans-serif;background:#f4f4f4;margin:0;padding:0}
+.container{max-width:600px;margin:30px auto;background:#fff;border-radius:10px;overflow:hidden}
+.header{background:linear-gradient(135deg,#1a56db,#0e3a8a);padding:40px;text-align:center;color:#fff}
+.ticket{margin:20px 40px;border:2px dashed #1a56db;border-radius:10px;padding:20px}
+.row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee}
+.label{color:#888;font-size:13px}
+.value{font-weight:bold;color:#222}
+.status{background:#d1fae5;color:#065f46;padding:6px 16px;border-radius:20px;font-weight:bold}
+.footer{background:#f8f8f8;padding:20px;text-align:center;color:#888;font-size:12px}
+</style></head>
+<body>
+<div class="container">
+  <div class="header"><h1>🎫 Booking Confirmed!</h1><p>Booking ID: {{booking.booking_id}}</p></div>
+  <div class="ticket">
+    <div class="row"><span class="label">Passenger</span><span class="value">{{booking.passenger_name}}</span></div>
+    <div class="row"><span class="label">From → To</span><span class="value">{{booking.trip.schedule.route.source}} → {{booking.trip.schedule.route.destination}}</span></div>
+    <div class="row"><span class="label">Travel Date</span><span class="value">{{booking.trip.trip_date}}</span></div>
+    <div class="row"><span class="label">Departure</span><span class="value">{{booking.trip.schedule.departure_time}}</span></div>
+    <div class="row"><span class="label">Seat Number</span><span class="value">{{booking.seat.seat_number}}</span></div>
+    <div class="row"><span class="label">Bus</span><span class="value">{{booking.trip.schedule.bus.bus_name}}</span></div>
+    <div class="row"><span class="label">Fare Paid</span><span class="value">₹{{booking.fare_paid}}</span></div>
+    <div class="row"><span class="label">Status</span><span class="status">{{booking.status}}</span></div>
+  </div>
+  <div class="footer">Thank you for choosing BusGo! Have a safe journey. 🚌</div>
+</div>
+</body></html>
