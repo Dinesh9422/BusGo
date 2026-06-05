@@ -1,6 +1,13 @@
 import sys
-import importlib.metadata
-sys.modules['pkg_resources'] = importlib.metadata
+try:
+    import pkg_resources
+except ImportError:
+    import importlib.metadata
+    import types
+    pkg_resources = types.ModuleType('pkg_resources')
+    pkg_resources.DistributionNotFound = Exception
+    pkg_resources.get_distribution = lambda x: None
+    sys.modules['pkg_resources'] = pkg_resources
 import pymysql
 pymysql.install_as_MySQLdb()
 from pathlib import Path
