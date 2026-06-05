@@ -1,3 +1,6 @@
+import sys
+import importlib.metadata
+sys.modules['pkg_resources'] = importlib.metadata
 import pymysql
 pymysql.install_as_MySQLdb()
 from pathlib import Path
@@ -54,16 +57,13 @@ TEMPLATES = [{'BACKEND': 'django.template.backends.django.DjangoTemplates',
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
+import dj_database_url
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': env('DB_NAME', default='bus_reservation_db'),
-        'USER': env('DB_USER', default='root'),
-        'PASSWORD': env('DB_PASSWORD', default=''),
-        'HOST': env('DB_HOST', default='localhost'),
-        'PORT': env('DB_PORT', default='3306'),
-        'OPTIONS': {'charset': 'utf8mb4'},
-    }
+    'default': dj_database_url.config(
+        default=env('DATABASE_URL', default='sqlite:///db.sqlite3'),
+        conn_max_age=600
+    )
 }
 
 AUTH_USER_MODEL = 'accounts.User'
