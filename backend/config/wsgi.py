@@ -13,6 +13,11 @@ except Exception as e:
     print(f"Migration error: {e}")
 
 try:
+    call_command('collectstatic', '--noinput', verbosity=0)
+except Exception as e:
+    print(f"Collectstatic error: {e}")
+
+try:
     from django.contrib.auth import get_user_model
     User = get_user_model()
     if not User.objects.filter(email='admin@busgo.com').exists():
