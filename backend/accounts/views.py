@@ -20,7 +20,10 @@ class RegisterView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         refresh = RefreshToken.for_user(user)
-        send_welcome_email(user)
+        try:
+            send_welcome_email(user)
+        except:
+            pass
         return Response({
             'user': UserSerializer(user).data,
             'tokens': {
