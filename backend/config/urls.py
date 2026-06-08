@@ -9,7 +9,7 @@ urlpatterns = [
     path('api/buses/', include('buses.urls')),
     path('api/bookings/', include('bookings.urls')),
     path('api/payments/', include('payments.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.site.site_header = "BusGo Admin Panel"
 admin.site.site_title = "BusGo"
