@@ -246,7 +246,7 @@ const HomePage = () => {
                 <div style={{ flex: 1, textAlign: 'center' }}>
                   <div style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 4 }}>{duration}</div>
                   <div style={{ height: 2, background: bg, borderRadius: 2 }} />
-                  <div style={{ fontSize: 16, marginTop: 4 }}>✈️</div>
+                  <div style={{ fontSize: 16, marginTop: 4 }}>🚌</div>
                 </div>
                 <div style={{ textAlign: 'right' }}>
                   <div style={{ fontWeight: 700, fontSize: 17, fontFamily: 'Sora, sans-serif' }}>{to}</div>
