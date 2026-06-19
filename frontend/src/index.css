@@ -26,6 +26,9 @@
   --shadow-xl: 0 20px 60px rgba(26,63,170,0.22);
   --nav-height: 64px;
   --transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+  --input-bg: #ffffff;
+  --input-text: #0f172a;
+  --input-placeholder: #94a3b8;
 }
 
 [data-theme="dark"] {
@@ -33,7 +36,6 @@
   --bg2: #0f1628;
   --surface: #141b2d;
   --surface2: #1a2340;
-  --surface3: #1f2a4a;
   --text: #f1f5f9;
   --text-muted: #94a3b8;
   --text-light: #64748b;
@@ -43,6 +45,9 @@
   --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
   --shadow: 0 4px 24px rgba(0,0,0,0.4);
   --shadow-lg: 0 8px 40px rgba(0,0,0,0.5);
+  --input-bg: #1a2340;
+  --input-text: #f1f5f9;
+  --input-placeholder: #64748b;
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -144,39 +149,62 @@ input, select, textarea { font-family: inherit; outline: none; }
 }
 .card-hover:hover { transform:translateY(-4px);box-shadow:var(--shadow-lg); }
 
-/* ── INPUTS ── */
+/* ══════════════════════════════
+   INPUT FIELDS — DARK MODE FIX
+══════════════════════════════ */
 .input-field {
-  width:100%;padding:12px 16px;border:2px solid var(--border);
-  border-radius:var(--radius);font-size:15px;
-  background:var(--surface) !important;
-  color:var(--text) !important;
-  transition:var(--transition);
-  -webkit-text-fill-color: var(--text) !important;
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 15px;
+  background: var(--input-bg) !important;
+  color: var(--input-text) !important;
+  transition: var(--transition);
+  -webkit-text-fill-color: var(--input-text) !important;
+  caret-color: var(--input-text) !important;
 }
-.input-field:focus { border-color:var(--primary);box-shadow:0 0 0 4px var(--primary-glow); }
-.input-field::placeholder { color:var(--text-light) !important; }
 
-/* Fix autofill dark mode */
+.input-field:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--primary-glow);
+}
+
+.input-field::placeholder {
+  color: var(--input-placeholder) !important;
+  -webkit-text-fill-color: var(--input-placeholder) !important;
+  opacity: 1;
+}
+
+/* Autofill fix */
 .input-field:-webkit-autofill,
 .input-field:-webkit-autofill:hover,
-.input-field:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0 1000px var(--surface) inset !important;
-  -webkit-text-fill-color: var(--text) !important;
-  caret-color: var(--text) !important;
+.input-field:-webkit-autofill:focus,
+.input-field:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px var(--input-bg) inset !important;
+  -webkit-text-fill-color: var(--input-text) !important;
+  caret-color: var(--input-text) !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
+/* Select dropdown */
 select.input-field {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 14px center !important;
   padding-right: 36px;
 }
 
-/* Dark mode select options */
 [data-theme="dark"] select.input-field option {
-  background: var(--surface);
-  color: var(--text);
+  background: #1a2340;
+  color: #f1f5f9;
+}
+
+/* Textarea */
+textarea.input-field {
+  resize: none;
 }
 
 /* ── BADGES ── */
@@ -200,11 +228,7 @@ select.input-field {
 
 /* ── BUS ANIMATION ── */
 .bus-road-container { position:absolute;bottom:0;left:0;right:0;height:60px;overflow:hidden;pointer-events:none; }
-.road-lines {
-  position:absolute;bottom:20px;left:0;width:200%;height:4px;
-  background:repeating-linear-gradient(90deg,rgba(255,255,255,0.3) 0px,rgba(255,255,255,0.3) 40px,transparent 40px,transparent 80px);
-  animation:roadLine 1.5s linear infinite;
-}
+.road-lines { position:absolute;bottom:20px;left:0;width:200%;height:4px;background:repeating-linear-gradient(90deg,rgba(255,255,255,0.3) 0px,rgba(255,255,255,0.3) 40px,transparent 40px,transparent 80px);animation:roadLine 1.5s linear infinite; }
 .animated-bus { position:absolute;bottom:24px;font-size:36px;animation:busSlide 8s linear infinite;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.3)); }
 
 /* ── DARK MODE TOGGLE ── */
@@ -245,9 +269,9 @@ select.input-field {
 .text-gradient { background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
 .divider { height:1px;background:var(--border);margin:20px 0; }
 
-/* ══════════════════════════════════
-   MOBILE RESPONSIVE FIXES
-══════════════════════════════════ */
+/* ══════════════════════════════
+   MOBILE RESPONSIVE
+══════════════════════════════ */
 @media (max-width: 768px) {
   .mobile-nav { display:flex; }
   .hide-mobile { display:none !important; }
@@ -256,45 +280,18 @@ select.input-field {
   .page-container { padding:0 16px; }
   .card { padding:16px; }
 
-  /* Search form mobile fix */
-  .search-form-grid {
-    grid-template-columns: 1fr !important;
-    gap: 12px !important;
-  }
-
-  /* Input mobile fix — larger touch targets */
   .input-field {
-    font-size: 16px !important; /* prevents iOS zoom */
-    padding: 14px 16px !important;
-    min-height: 48px;
-    color: var(--text) !important;
-    background: var(--surface) !important;
-    -webkit-text-fill-color: var(--text) !important;
-  }
-
-  select.input-field {
     font-size: 16px !important;
-    color: var(--text) !important;
+    min-height: 50px;
   }
 
   .btn-primary, .btn-secondary, .btn-accent {
-    padding:12px 20px;font-size:14px;
+    padding: 12px 20px;
+    font-size: 14px;
     min-height: 48px;
-  }
-
-  /* Search button full width on mobile */
-  .search-btn-mobile {
-    width: 100% !important;
-    justify-content: center !important;
-  }
-
-  /* Booking page mobile */
-  .booking-grid {
-    grid-template-columns: 1fr !important;
   }
 }
 
 @media (max-width: 480px) {
-  .input-field { font-size:16px !important; }
   .section-title { font-size:24px; }
 }
